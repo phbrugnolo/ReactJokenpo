@@ -15,6 +15,14 @@ function UserListar() {
     });
   }
 
+  function remover(id: any) {
+    axios
+      .delete<User[]>(`http://localhost:5154/users/remover/${id}`)
+      .then((resposta) => {
+        setUsers(resposta.data);
+      });
+  }
+
   return (
     <div>
       <h1>Lista de users</h1>
@@ -39,10 +47,17 @@ function UserListar() {
               <td>{user.telefone}</td>
               <td>{user.idade}</td>
               <td>{user.criadoEm}</td>
+              <td>
+                <button
+                  type="button"
+                  onClick={() => {
+                    remover(user.id!);
+                  }}
+                >
+                  Remover
+                </button>
+              </td>
               {/* <td>
-                      <button type="button" onClick={() => { remover(user.id!) }}>Remover</button>
-                    </td>
-                    <td>
                       <button type="button"><Link to={/user/editar/${user.id!}}>Alterar</Link></button>
                     </td> */}
             </tr>
