@@ -9,10 +9,10 @@ function UserCadastrar() {
   const [idade, setIdade] = useState("");
   const [message, setMessage] = useState("");
 
-  const cadastrarUser = (e: React.FormEvent<HTMLFormElement>) => {
+  function cadastrarUser (e: any) {
     e.preventDefault();
 
-    const user: User = {
+    const user = {
       nome: nome,
       email: email,
       telefone: telefone,
