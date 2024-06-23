@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { User } from "../../../models/User";
+import { Link } from "react-router-dom";	
 import axios from "axios";
 
 function UserListar() {
@@ -38,6 +39,7 @@ function UserListar() {
             <th>Idade</th>
             <th>Criado Em</th>
             <th>Remover</th>
+            <th>Editar</th>
           </tr>
         </thead>
         <tbody>
@@ -59,9 +61,9 @@ function UserListar() {
                   Remover
                 </button>
               </td>
-              {/* <td>
-                      <button type="button"><Link to={/user/editar/${user.id!}}>Alterar</Link></button>
-                    </td> */}
+              <td>
+                <button type="button"><Link to={`/users/edit/${user.userId!}`}>Editar</Link></button>
+              </td>
             </tr>
           ))}
         </tbody>

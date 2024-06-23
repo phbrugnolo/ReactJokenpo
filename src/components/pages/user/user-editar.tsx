@@ -1,4 +1,8 @@
 function UserEditar(){
-    return;
+    return (
+        <div>
+            
+        </div>
+    );
 }
 export default UserEditar;

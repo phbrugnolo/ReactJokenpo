@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
 import UserCadastrar from "./components/pages/user/user-cadastrar";
 import UserListar from "./components/pages/user/user-listar";
+import UserEditar from "./components/pages/user/user-editar";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/" element={<UserListar />} />
           <Route path="/users/cadastrar" element={<UserCadastrar />} />
           <Route path="/users/listar" element={<UserListar />} />
+          <Route path="/users/editar/:id" element={<UserEditar />} />
         </Routes>
       </BrowserRouter>
       <footer>
