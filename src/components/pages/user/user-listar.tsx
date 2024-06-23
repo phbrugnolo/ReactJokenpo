@@ -12,12 +12,14 @@ function UserListar() {
   function carregarUsers() {
     axios.get<User[]>("http://localhost:5154/users/listar").then((resposta) => {
       setUsers(resposta.data);
+    }).catch((erro) => {
+      console.log("Erro: " + erro);
     });
   }
 
-  function remover(id: any) {
+  function remover(userId : any) {
     axios
-      .delete<User[]>(`http://localhost:5154/users/remover/${id}`)
+      .delete<User[]>(`http://localhost:5154/users/remover/${userId}`)
       .then((resposta) => {
         setUsers(resposta.data);
       });
@@ -40,8 +42,8 @@ function UserListar() {
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.id}</td>
+            <tr key={user.userId}>
+              <td>{user.userId}</td>
               <td>{user.nome}</td>
               <td>{user.email}</td>
               <td>{user.telefone}</td>
@@ -51,7 +53,7 @@ function UserListar() {
                 <button
                   type="button"
                   onClick={() => {
-                    remover(user.id!);
+                    remover(user.userId!);
                   }}
                 >
                   Remover
