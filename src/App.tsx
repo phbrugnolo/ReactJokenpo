@@ -25,7 +25,7 @@ function App() {
           <Route path="/" element={<UserListar />} />
           <Route path="/users/cadastrar" element={<UserCadastrar />} />
           <Route path="/users/listar" element={<UserListar />} />
-          <Route path="/users/editar/:id" element={<UserEditar />} />
+          <Route path="/users/edit/:id" element={<UserEditar />} />
         </Routes>
       </BrowserRouter>
       <footer>
