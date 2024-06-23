@@ -5,5 +5,4 @@ export interface User{
     telefone: string;
     idade: number;
     criadoEm?: string;
-
 }
