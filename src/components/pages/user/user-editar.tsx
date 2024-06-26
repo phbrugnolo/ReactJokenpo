@@ -77,7 +77,7 @@ function UserEditar() {
           />
         </div>
         <div>
-          <button type="submit">editar</button>
+          <button type="submit">Salvar</button>
         </div>
       </form>
     </div>

@@ -1,5 +1,5 @@
 export interface Torneio{
-    id?: string;
+    torneioId?: string;
     nome: string;
     descricao: string;
     premiacao: number;
