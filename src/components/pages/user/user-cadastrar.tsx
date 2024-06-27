@@ -1,4 +1,3 @@
-import { User } from "../../../models/User";
 import { useState } from "react";
 import axios from "axios";
 

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import { Torneio } from "../../../models/Torneio";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";	
 import axios from "axios";
 
@@ -11,7 +11,7 @@ function TorneioListar() {
   }, []);
 
   function carregarTorneios() {
-    axios.get<Torneio[]>("http://localhost:5154/torneio/listar").then((resposta) => {
+    axios.get<Torneio[]>("http://localhost:5154/tournament/listar").then((resposta) => {
       setTorneios(resposta.data);
     }).catch((erro) => {
       console.log("Erro: " + erro);
@@ -20,7 +20,7 @@ function TorneioListar() {
 
   function remover(torneioId : any) {
     axios
-      .delete<Torneio[]>(`http://localhost:5154/torneio/remover/${torneioId}`)
+      .delete<Torneio[]>(`http://localhost:5154/tournament/remover/${torneioId}`)
       .then((resposta) => {
         setTorneios(resposta.data);
       });

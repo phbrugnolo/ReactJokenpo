@@ -1,4 +1,3 @@
-import { Torneio } from "../../../models/Torneio";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
@@ -12,7 +11,7 @@ function TorneioEditar() {
   useEffect(() => {
     if (torneioId) {
       axios
-        .get(`http://localhost:5154/torneio/buscar/${torneioId}`)
+        .get(`http://localhost:5154/tournament/buscar/${torneioId}`)
         .then((response) => {
           const torneio = response.data;
           setNome(torneio.nome);
@@ -24,12 +23,12 @@ function TorneioEditar() {
 
   function editarTorneio(e: any) {
     e.preventDefault();
-    const user = {
+    const torneio = {
       nome: nome,
       descricao: descricao,
       premiacao: premiacao,
     };
-    axios.put(`http://localhost:5154/torneio/edit/${torneioId}`, user);
+    axios.put(`http://localhost:5154/tournament/edit/${torneioId}`, torneio);
   }
 
   return (

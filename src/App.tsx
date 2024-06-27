@@ -34,10 +34,10 @@ function App() {
           <Route path="/" element={<UserListar />} />
           <Route path="/users/cadastrar" element={<UserCadastrar />} />
           <Route path="/users/listar" element={<UserListar />} />
-          <Route path="/users/edit/:userId" element={<UserEditar />} />
-          <Route path="/torneio/edit/:torneioId" element={<TorneioEditar />} />
+          <Route path={"/users/edit/:userId"} element={<UserEditar />} />
           <Route path="/torneio/cadastrar" element={<TorneioCadastrar />} />
           <Route path="/torneio/listar" element={<TorneioListar />} />
+          <Route path={"/torneio/edit/:torneioId"} element={<TorneioEditar />} />
         </Routes>
       </BrowserRouter>
       <footer>

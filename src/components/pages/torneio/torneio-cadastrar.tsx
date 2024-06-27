@@ -1,4 +1,3 @@
-import { Torneio } from "../../../models/Torneio";
 import { useState } from "react";
 import axios from "axios";
 
@@ -16,7 +15,7 @@ function TorneioCadastrar() {
     };
 
     axios
-      .post("http://localhost:5154/torneio/cadastrar", user, {
+      .post("http://localhost:5154/tournament/cadastrar", user, {
         headers: {
           "Content-Type": "application/json",
         },
