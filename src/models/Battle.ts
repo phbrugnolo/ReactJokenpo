@@ -8,4 +8,5 @@ export interface Battle{
     jogada: string;
     user: User;
     torneio: Torneio;
+    criadoEm?: string;
 }

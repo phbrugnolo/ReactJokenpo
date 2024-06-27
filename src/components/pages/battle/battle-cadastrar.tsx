@@ -1,58 +1,58 @@
 import { useState } from "react";
 import axios from "axios";
 
-function TorneioCadastrar() {
-  const [nome, setNome] = useState("");
-  const [descricao, setDescricao] = useState("");
-  const [premiacao, setPremiacao] = useState("");
+function BattleCadastrar() {
+  const [userId, setUserId] = useState("");
+  const [torneioId, setTorneioId] = useState("");
+  const [jogadas, setJogadas] = useState("");
 
-  function cadastrarTorneio(e: any) {
+  function cadastrarBatalha(e: any) {
     e.preventDefault();
-    const user = {
-      nome: nome,
-      descricao: descricao,
-      premiacao: premiacao,
+    const battle = {
+      userId: userId,
+      torneioId: torneioId,
+      jogadas: jogadas,
     };
 
     axios
-      .post("http://localhost:5154/tournament/cadastrar", user, {
+      .post("http://localhost:5154/batalhar", battle, {
         headers: {
           "Content-Type": "application/json",
         },
       })
       .catch((error) => {
-        console.error("Erro ao cadastrar torneio:", error);
+        console.error("Erro ao realizar batalha", error);
       });
   }
 
   return (
     <div>
-      <h1>Cadastrar Usuário</h1>
-      <form onSubmit={cadastrarTorneio}>
+      <h1>Criar Batalha</h1>
+      <form onSubmit={cadastrarBatalha}>
         <div>
-          <label>Nome:</label>
+          <label>Id do Usuário:</label>
           <input
             type="text"
-            placeholder="Digite o nome"
-            onChange={(e) => setNome(e.target.value)}
+            placeholder="Digite o id do usuário"
+            onChange={(e) => setUserId(e.target.value)}
             required
           />
         </div>
         <div>
-          <label>Descrição:</label>
+          <label>Id do Torneio:</label>
           <input
             type="text"
-            placeholder="Digite a descrição"
-            onChange={(e) => setDescricao(e.target.value)}
+            placeholder="Digite o id do torneio"
+            onChange={(e) => setTorneioId(e.target.value)}
             required
           />
         </div>
         <div>
-          <label>Premiação:</label>
+          <label>Jogadas:</label>
           <input
-            type="number"
-            placeholder="Digite a premiação"
-            onChange={(e) => setPremiacao(e.target.value)}
+            type="text"
+            placeholder="Digite as jogadas"
+            onChange={(e) => setJogadas(e.target.value)}
             required
           />
         </div>
@@ -64,4 +64,4 @@ function TorneioCadastrar() {
   );
 }
 
-export default TorneioCadastrar;
+export default BattleCadastrar;
