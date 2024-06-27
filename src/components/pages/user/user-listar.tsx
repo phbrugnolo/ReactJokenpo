@@ -1,8 +1,20 @@
 import { User } from "../../../models/User";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";	
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { formatarData } from "../../../util/formata";
+import {
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Typography,
+} from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 
 function UserListar() {
   const [users, setUsers] = useState<User[]>([]);
@@ -12,14 +24,17 @@ function UserListar() {
   }, []);
 
   function carregarUsers() {
-    axios.get<User[]>("http://localhost:5154/users/listar").then((resposta) => {
-      setUsers(resposta.data);
-    }).catch((erro) => {
-      console.log("Erro: " + erro);
-    });
+    axios
+      .get<User[]>("http://localhost:5154/users/listar")
+      .then((resposta) => {
+        setUsers(resposta.data);
+      })
+      .catch((erro) => {
+        console.log("Erro: " + erro);
+      });
   }
 
-  function remover(userId : any) {
+  function remover(userId: any) {
     axios
       .delete<User[]>(`http://localhost:5154/users/remover/${userId}`)
       .then((resposta) => {
@@ -29,52 +44,58 @@ function UserListar() {
 
   return (
     <div>
-      <h1>Lista de users</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th>Telefone</th>
-            <th>Idade</th>
-            <th>Vitorias</th>
-            <th>Derrotas</th>
-            <th>Empates</th>
-            <th>Criado Em</th>
-            <th>Remover</th>
-            <th>Editar</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Typography variant="h3">Lista de usuários</Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>#</TableCell>
+            <TableCell>Nome</TableCell>
+            <TableCell>E-mail</TableCell>
+            <TableCell>Telefone</TableCell>
+            <TableCell>Idade</TableCell>
+            <TableCell>Vitórias</TableCell>
+            <TableCell>Derrotas</TableCell>
+            <TableCell>Empates</TableCell>
+            <TableCell>Criado Em</TableCell>
+            <TableCell>Remover</TableCell>
+            <TableCell>Editar</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {users.map((user) => (
-            <tr key={user.userId}>
-              <td>{user.userId}</td>
-              <td>{user.nome}</td>
-              <td>{user.email}</td>
-              <td>{user.telefone}</td>
-              <td>{user.idade}</td>
-              <td>{user.vitoria}</td>
-              <td>{user.derrota}</td>
-              <td>{user.empate}</td>
-              <td>{formatarData(user.criadoEm)}</td>
-              <td>
-                <button
-                  type="button"
-                  onClick={() => {
-                    remover(user.userId!);
-                  }}
+            <TableRow key={user.userId}>
+              <TableCell>{user.userId}</TableCell>
+              <TableCell>{user.nome}</TableCell>
+              <TableCell>{user.email}</TableCell>
+              <TableCell>{user.telefone}</TableCell>
+              <TableCell>{user.idade}</TableCell>
+              <TableCell>{user.vitoria}</TableCell>
+              <TableCell>{user.derrota}</TableCell>
+              <TableCell>{user.empate}</TableCell>
+              <TableCell>{formatarData(user.criadoEm)}</TableCell>
+              <TableCell>
+                <Tooltip title="Remover">
+                  <IconButton
+                    onClick={() => remover(user.userId)}
+                    style={{ color: "red" }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
+              <TableCell>
+                <IconButton
+                  component={Link}
+                  to={`/users/edit/${user.userId}`}
+                  style={{ color: "#4d79ff" }}
                 >
-                  Remover
-                </button>
-              </td>
-              <td>
-                <button type="button"><Link to={`/users/edit/${user.userId!}`}>Editar</Link></button>
-              </td>
-            </tr>
+                  <ModeEditOutlineIcon />
+                </IconButton>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

@@ -1,7 +1,15 @@
 import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { formatarData } from "../../../util/formata";
+import { formatarData, formatarGuid } from "../../../util/formata";
+import {
+  Typography,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 
 function UltimaBatalha() {
   const [batalhas, setBatalhas] = useState<Battle[]>([]);
@@ -23,27 +31,31 @@ function UltimaBatalha() {
 
   return (
     <div>
-      <h1>Batalha mais recente</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Nome</th>
-            <th>UserId</th>
-            <th>TorneioId</th>
-          </tr>
-        </thead>
-        <tbody>
-          {batalhas.map((batalhas) => (
-            <tr key={batalhas.battleId}>
-              <td>{batalhas.battleId}</td>
-              <td>{batalhas.userId}</td>
-              <td>{batalhas.torneioId}</td>
-              <td>{formatarData(batalhas.criadoEm)}</td>
-            </tr>
+      <Typography variant="h3">Lista de batalhas</Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>#</TableCell>
+            <TableCell>Usuário</TableCell>
+            <TableCell>Torneio</TableCell>
+            <TableCell>Jogada</TableCell>
+            <TableCell>Máquina</TableCell>
+            <TableCell>Criado Em</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {batalhas.map((batalha) => (
+            <TableRow key={batalha.battleId}>
+              <TableCell>{formatarGuid(batalha.battleId)}</TableCell>
+              <TableCell>{batalha.user?.nome}</TableCell>
+              <TableCell>{batalha.torneio?.nome}</TableCell>
+              <TableCell>{batalha.jogada}</TableCell>
+              <TableCell>{batalha.jogadaMaquina}</TableCell>
+              <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

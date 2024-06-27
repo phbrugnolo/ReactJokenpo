@@ -2,6 +2,14 @@ import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
 import { formatarData, formatarGuid } from "../../../util/formata";
 import axios from "axios";
+import {
+  Typography,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+} from "@mui/material";
 
 function BattleListar() {
   const [batalhas, setBatalhas] = useState<Battle[]>([]);
@@ -23,31 +31,31 @@ function BattleListar() {
 
   return (
     <div>
-      <h1>Lista de batalhas</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Usuario</th>
-            <th>Torneio</th>
-            <th>Jogada</th>
-            <th>Maquina</th>
-            <th>Criado Em</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Typography variant="h3">Lista de batalhas</Typography>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>#</TableCell>
+            <TableCell>Usuário</TableCell>
+            <TableCell>Torneio</TableCell>
+            <TableCell>Jogada</TableCell>
+            <TableCell>Máquina</TableCell>
+            <TableCell>Criado Em</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {batalhas.map((batalha) => (
-            <tr key={batalha.battleId}>
-              <td data-tip={batalha.battleId}>{formatarGuid(batalha.battleId)}</td>
-              <td data-tip={batalha.user?.nome}>{batalha.user?.nome}</td>
-              <td data-tip={batalha.torneio?.nome}>{batalha.torneio?.nome}</td>
-              <td>{batalha.jogada}</td>
-              <td>{batalha.jogadaMaquina}</td>
-              <td>{formatarData(batalha.criadoEm)}</td>
-            </tr>
+            <TableRow key={batalha.battleId}>
+              <TableCell>{formatarGuid(batalha.battleId)}</TableCell>
+              <TableCell>{batalha.user?.nome}</TableCell>
+              <TableCell>{batalha.torneio?.nome}</TableCell>
+              <TableCell>{batalha.jogada}</TableCell>
+              <TableCell>{batalha.jogadaMaquina}</TableCell>
+              <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }
