@@ -1,6 +1,7 @@
 import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { formatarData } from "../../../util/formata";
 
 function UltimaBatalha() {
   const [batalhas, setBatalhas] = useState<Battle[]>([]);
@@ -38,7 +39,7 @@ function UltimaBatalha() {
               <td>{batalhas.battleId}</td>
               <td>{batalhas.userId}</td>
               <td>{batalhas.torneioId}</td>
-              <td>{batalhas.criadoEm}</td>
+              <td>{formatarData(batalhas.criadoEm)}</td>
             </tr>
           ))}
         </tbody>

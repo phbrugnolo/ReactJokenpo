@@ -1,5 +1,6 @@
 import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
+import { formatarData, formatarGuid } from "../../../util/formata";
 import axios from "axios";
 
 function BattleListar() {
@@ -13,8 +14,7 @@ function BattleListar() {
     axios
       .get<Battle[]>("http://localhost:5154/batalhas/listar")
       .then((resposta) => {
-        console.log(resposta.data);
-        setBatalhas([resposta.data[0], resposta.data[1], resposta.data[2]]);
+        setBatalhas(resposta.data);
       })
       .catch((erro) => {
         console.log("Erro: " + erro);
@@ -28,19 +28,22 @@ function BattleListar() {
         <thead>
           <tr>
             <th>#</th>
-            <th>Nome</th>
-            <th>UserId</th>
-            <th>TorneioId</th>
+            <th>Usuario</th>
+            <th>Torneio</th>
+            <th>Jogada</th>
+            <th>Maquina</th>
             <th>Criado Em</th>
           </tr>
         </thead>
         <tbody>
-          {batalhas.map((batalhas) => (
-            <tr key={batalhas.battleId}>
-              <td>{batalhas.battleId}</td>
-              <td>{batalhas.userId}</td>
-              <td>{batalhas.torneioId}</td>
-              <td>{batalhas.criadoEm}</td>
+          {batalhas.map((batalha) => (
+            <tr key={batalha.battleId}>
+              <td data-tip={batalha.battleId}>{formatarGuid(batalha.battleId)}</td>
+              <td data-tip={batalha.user?.nome}>{batalha.user?.nome}</td>
+              <td data-tip={batalha.torneio?.nome}>{batalha.torneio?.nome}</td>
+              <td>{batalha.jogada}</td>
+              <td>{batalha.jogadaMaquina}</td>
+              <td>{formatarData(batalha.criadoEm)}</td>
             </tr>
           ))}
         </tbody>

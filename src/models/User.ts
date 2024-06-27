@@ -4,5 +4,8 @@ export interface User{
     email: string;
     telefone: string;
     idade: number;
+    vitoria: number;
+    derrota: number;
+    empate: number;
     criadoEm?: string;
 }

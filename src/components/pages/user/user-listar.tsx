@@ -2,6 +2,7 @@ import { User } from "../../../models/User";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";	
 import axios from "axios";
+import { formatarData } from "../../../util/formata";
 
 function UserListar() {
   const [users, setUsers] = useState<User[]>([]);
@@ -37,6 +38,9 @@ function UserListar() {
             <th>E-mail</th>
             <th>Telefone</th>
             <th>Idade</th>
+            <th>Vitorias</th>
+            <th>Derrotas</th>
+            <th>Empates</th>
             <th>Criado Em</th>
             <th>Remover</th>
             <th>Editar</th>
@@ -50,7 +54,10 @@ function UserListar() {
               <td>{user.email}</td>
               <td>{user.telefone}</td>
               <td>{user.idade}</td>
-              <td>{user.criadoEm}</td>
+              <td>{user.vitoria}</td>
+              <td>{user.derrota}</td>
+              <td>{user.empate}</td>
+              <td>{formatarData(user.criadoEm)}</td>
               <td>
                 <button
                   type="button"

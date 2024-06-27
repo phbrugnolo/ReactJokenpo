@@ -2,6 +2,7 @@ import { Torneio } from "../../../models/Torneio";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";	
 import axios from "axios";
+import { formatarData } from "../../../util/formata";
 
 function TorneioListar() {
   const [torneio, setTorneios] = useState<Torneio[]>([]);
@@ -48,7 +49,7 @@ function TorneioListar() {
               <td>{torneio.nome}</td>
               <td>{torneio.descricao}</td>
               <td>{torneio.premiacao}</td>
-              <td>{torneio.criadoEm}</td>
+              <td>{formatarData(torneio.criadoEm)}</td>
               <td>
                 <button
                   type="button"
