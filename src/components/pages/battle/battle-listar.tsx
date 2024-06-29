@@ -1,6 +1,6 @@
 import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
-import { formatarData, formatarGuid } from "../../../util/formata";
+import { formatarData, formatarGuid, formatarJogadaIcon } from "../../../util/formata";
 import axios from "axios";
 import {
   Typography,
@@ -9,6 +9,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Tooltip,
 } from "@mui/material";
 
 function BattleListar() {
@@ -47,10 +48,14 @@ function BattleListar() {
           {batalhas.map((batalha) => (
             <TableRow key={batalha.battleId}>
               <TableCell>{batalha.battleId}</TableCell>
-              <TableCell>{batalha.user?.nome}</TableCell>
-              <TableCell>{batalha.torneio?.nome}</TableCell>
-              <TableCell>{batalha.jogada}</TableCell>
-              <TableCell>{batalha.jogadaMaquina}</TableCell>
+              <Tooltip title={batalha.torneioId}>
+                <TableCell>{batalha.user?.nome}</TableCell>
+              </Tooltip>
+              <Tooltip title={batalha.userId}>
+                <TableCell>{batalha.torneio?.nome}</TableCell>
+              </Tooltip>
+              <TableCell>{formatarJogadaIcon(batalha.jogada)}</TableCell>
+              <TableCell>{formatarJogadaIcon(batalha.jogadaMaquina)}</TableCell>
               <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
             </TableRow>
           ))}

@@ -53,6 +53,9 @@ function UserBattles() {
               <TableCell>{batalha.torneio?.nome}</TableCell>
               <TableCell>{batalha.jogada}</TableCell>
               <TableCell>{batalha.jogadaMaquina}</TableCell>
+              <TableCell>{batalha.user?.vitoria}</TableCell>
+              <TableCell>{batalha.user?.derrota}</TableCell>
+              <TableCell>{batalha.user?.empate}</TableCell>
               <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
             </TableRow>
           ))}

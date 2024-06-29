@@ -24,10 +24,10 @@ function UltimaBatalha() {
   const [criadoEm, setCriadoEm] = useState("");
 
   useEffect(() => {
-    carregarBatalhas();
+    carregarBatalha();
   }, []);
 
-  function carregarBatalhas() {
+  function carregarBatalha() {
     axios
       .get("http://localhost:5154/batalhas/last")
       .then((resposta) => {

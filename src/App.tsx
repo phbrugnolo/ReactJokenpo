@@ -10,7 +10,9 @@ import TorneioEditar from "./components/pages/torneio/torneio-editar";
 import BattleCadastrar from "./components/pages/battle/battle-cadastrar";
 import BattleListar from "./components/pages/battle/battle-listar";
 import UltimaBatalha from "./components/pages/battle/battle-ultima";
-import UserBattles from "./components/pages/user/user-battle";
+import UserBattles from "./components/pages/user/user-battles";
+import UserListarUm from "./components/pages/user/user-listar-um";
+import TorneioListarUm from "./components/pages/torneio/torneio-listar-um";
 
 const theme = createTheme({
   palette: {
@@ -124,10 +126,12 @@ const App: React.FC = () => {
               <Route path="/users/cadastrar" element={<UserCadastrar />} />
               <Route path="/users/listar" element={<UserListar />} />
               <Route path={"/users/edit/:userId"} element={<UserEditar />} />
+              <Route path={"/users/buscar/:userId"} element={<UserListarUm />} />
               <Route path={"/users/batalhas/:userId"} element={<UserBattles />} />
               <Route path="/torneios/cadastrar" element={<TorneioCadastrar />} />
               <Route path="/torneios/listar" element={<TorneioListar />} />
               <Route path={"/torneios/edit/:torneioId"} element={<TorneioEditar />} />
+              <Route path={"/torneios/buscar/:torneioId"} element={<TorneioListarUm />} />
               <Route path="/batalhas/cadastrar" element={<BattleCadastrar />} />
               <Route path="/batalhas/listar" element={<BattleListar />} />
               <Route path="/batalhas/ultima" element={<UltimaBatalha />} />

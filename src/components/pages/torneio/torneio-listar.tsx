@@ -55,8 +55,8 @@ function TorneioListar() {
             <TableCell>Descrição</TableCell>
             <TableCell>Premiação</TableCell>
             <TableCell>Criado Em</TableCell>
-            <TableCell>Remover</TableCell>
             <TableCell>Editar</TableCell>
+            <TableCell>Remover</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,10 +65,21 @@ function TorneioListar() {
               <TableCell>{torneio.torneioId}</TableCell>
               <TableCell>{torneio.nome}</TableCell>
               <TableCell>{torneio.descricao}</TableCell>
-              <TableCell>{torneio.premiacao}</TableCell>
+              <TableCell>{torneio.premiacao.toFixed(2)}</TableCell>
               <TableCell>{formatarData(torneio.criadoEm)}</TableCell>
               <TableCell>
-                <Tooltip title="Remover">
+                <Tooltip title="Editar Torneio">
+                  <IconButton
+                    component={Link}
+                    to={`/torneios/edit/${torneio.torneioId}`}
+                    style={{ color: "#4d79ff" }}
+                  >
+                    <ModeEditOutlineIcon />
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
+              <TableCell>
+                <Tooltip title="Remover Torneio">
                   <IconButton
                     onClick={() => remover(torneio.torneioId)}
                     style={{ color: "red" }}
@@ -76,15 +87,6 @@ function TorneioListar() {
                     <DeleteIcon />
                   </IconButton>
                 </Tooltip>
-              </TableCell>
-              <TableCell>
-                <IconButton
-                  component={Link}
-                  to={`/torneios/edit/${torneio.torneioId}`}
-                  style={{ color: "#4d79ff" }}
-                >
-                  <ModeEditOutlineIcon />
-                </IconButton>
               </TableCell>
             </TableRow>
           ))}

@@ -9,14 +9,13 @@ function UserCadastrar() {
   const [idade, setIdade] = useState("");
 
   function cadastrarUser(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
     const user = {
       nome: nome,
       email: email,
       telefone: telefone,
       idade: parseInt(idade),
     };
-    
+
     axios.post('http://localhost:5154/users/cadastrar', user, {
       headers: {
         'Content-Type': 'application/json',

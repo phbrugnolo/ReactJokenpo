@@ -12,7 +12,7 @@ function TorneioCadastrar() {
     const user = {
       nome: nome,
       descricao: descricao,
-      premiacao: premiacao,
+      premiacao: parseFloat(premiacao),
     };
 
     axios

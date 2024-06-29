@@ -54,13 +54,10 @@ function UserListar() {
             <TableCell>E-mail</TableCell>
             <TableCell>Telefone</TableCell>
             <TableCell>Idade</TableCell>
-            <TableCell>Vitórias</TableCell>
-            <TableCell>Derrotas</TableCell>
-            <TableCell>Empates</TableCell>
-            <TableCell>Batalhas</TableCell>
             <TableCell>Criado Em</TableCell>
-            <TableCell>Remover</TableCell>
+            <TableCell>Batalhas</TableCell>
             <TableCell>Editar</TableCell>
+            <TableCell>Remover</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -71,21 +68,31 @@ function UserListar() {
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.telefone}</TableCell>
               <TableCell>{user.idade}</TableCell>
-              <TableCell>{user.vitoria}</TableCell>
-              <TableCell>{user.derrota}</TableCell>
-              <TableCell>{user.empate}</TableCell>
-              <TableCell>
-                <IconButton
-                  component={Link}
-                  to={`/users/batalhas/${user.userId}`}
-                  style={{ color: " #3333cc" }}
-                >
-                  <VisibilityIcon />
-                </IconButton>
-              </TableCell>
               <TableCell>{formatarData(user.criadoEm)}</TableCell>
               <TableCell>
-                <Tooltip title="Remover">
+                <Tooltip title="Visualizar batalhas">
+                  <IconButton
+                    component={Link}
+                    to={`/users/batalhas/${user.userId}`}
+                    style={{ color: " #3333cc" }}
+                  >
+                    <VisibilityIcon />
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
+              <TableCell>
+                <Tooltip title="Editar Usuário">
+                  <IconButton
+                    component={Link}
+                    to={`/users/edit/${user.userId}`}
+                    style={{ color: "#4d79ff" }}
+                  >
+                    <ModeEditOutlineIcon />
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
+              <TableCell>
+                <Tooltip title="Remover Usuário">
                   <IconButton
                     onClick={() => remover(user.userId)}
                     style={{ color: "red" }}
@@ -93,15 +100,6 @@ function UserListar() {
                     <DeleteIcon />
                   </IconButton>
                 </Tooltip>
-              </TableCell>
-              <TableCell>
-                <IconButton
-                  component={Link}
-                  to={`/users/edit/${user.userId}`}
-                  style={{ color: "#4d79ff" }}
-                >
-                  <ModeEditOutlineIcon />
-                </IconButton>
               </TableCell>
             </TableRow>
           ))}

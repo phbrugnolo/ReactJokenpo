@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Container, Box, Typography, TextField, Button } from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
+import { Container, Box, Typography, TextField, Button, Snackbar } from "@mui/material";
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+
+const Alert = (props: AlertProps) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
 
 function TorneioEditar() {
   const { torneioId } = useParams<{ torneioId: string }>();
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [premiacao, setPremiacao] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (torneioId) {
@@ -20,7 +27,7 @@ function TorneioEditar() {
           setPremiacao(torneio.premiacao.toString());
         });
     }
-  }, []);
+  }, [torneioId]);
 
   function editarTorneio(e: any) {
     e.preventDefault();
@@ -29,14 +36,20 @@ function TorneioEditar() {
       descricao: descricao,
       premiacao: premiacao,
     };
-    axios.put(`http://localhost:5154/tournament/edit/${torneioId}`, torneio);
+    axios.put(`http://localhost:5154/tournament/edit/${torneioId}`, torneio)
+      .then(() => {
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          navigate("/torneios/listar");
+        }, 2000); // Redirecionar após 2 segundos
+      });
   }
 
   return (
     <Container maxWidth="sm">
       <Box sx={{ mt: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Editar Usuário
+          Editar Torneio
         </Typography>
         <form onSubmit={editarTorneio}>
           <TextField
@@ -74,6 +87,15 @@ function TorneioEditar() {
           </Box>
         </form>
       </Box>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert onClose={() => setOpenSnackbar(false)} severity="success">
+          Torneio alterado com sucesso!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
