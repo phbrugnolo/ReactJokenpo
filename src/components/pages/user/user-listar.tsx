@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function UserListar() {
   const [users, setUsers] = useState<User[]>([]);
@@ -56,6 +57,7 @@ function UserListar() {
             <TableCell>Vitórias</TableCell>
             <TableCell>Derrotas</TableCell>
             <TableCell>Empates</TableCell>
+            <TableCell>Batalhas</TableCell>
             <TableCell>Criado Em</TableCell>
             <TableCell>Remover</TableCell>
             <TableCell>Editar</TableCell>
@@ -72,6 +74,15 @@ function UserListar() {
               <TableCell>{user.vitoria}</TableCell>
               <TableCell>{user.derrota}</TableCell>
               <TableCell>{user.empate}</TableCell>
+              <TableCell>
+                <IconButton
+                  component={Link}
+                  to={`/users/batalhas/${user.userId}`}
+                  style={{ color: " #3333cc" }}
+                >
+                  <VisibilityIcon />
+                </IconButton>
+              </TableCell>
               <TableCell>{formatarData(user.criadoEm)}</TableCell>
               <TableCell>
                 <Tooltip title="Remover">

@@ -1,4 +1,5 @@
 import { Battle } from "../../../models/Battle";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { formatarData, formatarGuid } from "../../../util/formata";
 import axios from "axios";
@@ -11,22 +12,25 @@ import {
   TableBody,
 } from "@mui/material";
 
-function BattleListar() {
+function UserBattles() {
   const [batalhas, setBatalhas] = useState<Battle[]>([]);
+  const { userId } = useParams<{ userId: string }>();
 
   useEffect(() => {
     carregarBatalhas();
   }, []);
 
   function carregarBatalhas() {
-    axios
-      .get<Battle[]>("http://localhost:5154/batalhas/listar")
-      .then((resposta) => {
-        setBatalhas(resposta.data);
-      })
-      .catch((erro) => {
-        console.log("Erro: " + erro);
-      });
+    if (userId) {
+      axios
+        .get<Battle[]>(`http://localhost:5154/users/batalhas/${userId}`)
+        .then((resposta) => {
+          setBatalhas(resposta.data);
+        })
+        .catch((erro) => {
+          console.log("Erro: " + erro);
+        });
+    }
   }
 
   return (
@@ -36,18 +40,16 @@ function BattleListar() {
         <TableHead>
           <TableRow>
             <TableCell>#</TableCell>
-            <TableCell>Usuário</TableCell>
             <TableCell>Torneio</TableCell>
             <TableCell>Jogada</TableCell>
             <TableCell>Máquina</TableCell>
-            <TableCell>Criado Em</TableCell>
+            <TableCell>Data</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {batalhas.map((batalha) => (
             <TableRow key={batalha.battleId}>
-              <TableCell>{batalha.battleId}</TableCell>
-              <TableCell>{batalha.user?.nome}</TableCell>
+              <TableCell>{formatarGuid(batalha.battleId)}</TableCell>
               <TableCell>{batalha.torneio?.nome}</TableCell>
               <TableCell>{batalha.jogada}</TableCell>
               <TableCell>{batalha.jogadaMaquina}</TableCell>
@@ -59,4 +61,4 @@ function BattleListar() {
     </div>
   );
 }
-export default BattleListar;
+export default UserBattles;

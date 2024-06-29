@@ -1,6 +1,8 @@
 import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Torneio } from "../../../models/Torneio";
+import { User } from "../../../models/User";
 import { formatarData, formatarGuid } from "../../../util/formata";
 import {
   Typography,
@@ -12,7 +14,14 @@ import {
 } from "@mui/material";
 
 function UltimaBatalha() {
-  const [batalhas, setBatalhas] = useState<Battle[]>([]);
+  const [battleId, setBattleId] = useState("");
+  const [torneioId, setTorneioId] = useState("");
+  const [userId, setUserId] = useState("");
+  const [jogada, setJogada] = useState("");
+  const [jogadaMaquina, setJogadaMaquina] = useState("");
+  const [torneio, setTorneio] = useState<Torneio>();
+  const [user, setUser] = useState<User>();
+  const [criadoEm, setCriadoEm] = useState("");
 
   useEffect(() => {
     carregarBatalhas();
@@ -20,9 +29,17 @@ function UltimaBatalha() {
 
   function carregarBatalhas() {
     axios
-      .get<Battle[]>("http://localhost:5154/batalhas/last")
+      .get("http://localhost:5154/batalhas/last")
       .then((resposta) => {
-        setBatalhas(resposta.data);
+        const batalha = resposta.data;
+        setBattleId(batalha.battleId);
+        setTorneioId(batalha.torneioId);
+        setUserId(batalha.userId);
+        setJogada(batalha.jogada);
+        setJogadaMaquina(batalha.jogadaMaquina);
+        setTorneio(batalha.torneio);
+        setUser(batalha.user);
+        setCriadoEm(batalha.criadoEm);
       })
       .catch((erro) => {
         console.log("Erro: " + erro);
@@ -44,16 +61,14 @@ function UltimaBatalha() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {batalhas.map((batalha) => (
-            <TableRow key={batalha.battleId}>
-              <TableCell>{formatarGuid(batalha.battleId)}</TableCell>
-              <TableCell>{batalha.user?.nome}</TableCell>
-              <TableCell>{batalha.torneio?.nome}</TableCell>
-              <TableCell>{batalha.jogada}</TableCell>
-              <TableCell>{batalha.jogadaMaquina}</TableCell>
-              <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
-            </TableRow>
-          ))}
+          <TableRow key={battleId}>
+            <TableCell>{formatarGuid(battleId)}</TableCell>
+            <TableCell>{user?.nome}</TableCell>
+            <TableCell>{torneio?.nome}</TableCell>
+            <TableCell>{jogada}</TableCell>
+            <TableCell>{jogadaMaquina}</TableCell>
+            <TableCell>{formatarData(criadoEm)}</TableCell>
+          </TableRow>
         </TableBody>
       </Table>
     </div>
