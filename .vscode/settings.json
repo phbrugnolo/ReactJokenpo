@@ -1,0 +1,19 @@
+{
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "explorer.compactFolders": false,
+  "editor.wordWrap": "on",
+  "editor.tabSize": 2,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cSpell.userWords": [
+    "descricao",
+    "Descricao",
+    "indice",
+    "opcoes",
+    "premiacao",
+    "Premiacao",
+    "usuario",
+    "Jokenpo"
+  ]
+}

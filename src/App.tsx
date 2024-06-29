@@ -1,14 +1,6 @@
 import React from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Menu,
-  MenuItem,
-  Box,
-} from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Menu, MenuItem, Box, CssBaseline } from "@mui/material";
 import UserCadastrar from "./components/pages/user/user-cadastrar";
 import UserListar from "./components/pages/user/user-listar";
 import UserEditar from "./components/pages/user/user-editar";
@@ -50,9 +42,10 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+      <CssBaseline />
       <BrowserRouter>
-        <AppBar position="static">
+        <AppBar position="static" sx={{ width: '100%' }}>
           <Toolbar>
             <Typography variant="h6" sx={{ flexGrow: 1 }}>
               Projeto Jokenpo
@@ -116,24 +109,26 @@ const App: React.FC = () => {
             </Menu>
           </Toolbar>
         </AppBar>
-        <Routes>
-          <Route path="/" element={<UltimaBatalha />} />
-          <Route path="/users/cadastrar" element={<UserCadastrar />} />
-          <Route path="/users/listar" element={<UserListar />} />
-          <Route path="/users/edit/:userId" element={<UserEditar />} />
-          <Route path="/users/batalhas/:userId" element={<UserBattles />} />
-          <Route path="/torneio/cadastrar" element={<TorneioCadastrar />} />
-          <Route path="/torneio/listar" element={<TorneioListar />} />
-          <Route path="/torneio/edit/:torneioId" element={<TorneioEditar />} />
-          <Route path="/batalhas/cadastrar" element={<BattleCadastrar />} />
-          <Route path="/batalhas/listar" element={<BattleListar />} />
-          <Route path="/batalhas/ultima" element={<UltimaBatalha />} />
-        </Routes>
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Routes>
+            <Route path="/" element={<UltimaBatalha />} />
+            <Route path="/users/cadastrar" element={<UserCadastrar />} />
+            <Route path="/users/listar" element={<UserListar />} />
+            <Route path="/users/edit/:userId" element={<UserEditar />} />
+            <Route path="/users/batalhas/:userId" element={<UserBattles />} />
+            <Route path="/torneio/cadastrar" element={<TorneioCadastrar />} />
+            <Route path="/torneio/listar" element={<TorneioListar />} />
+            <Route path="/torneio/edit/:torneioId" element={<TorneioEditar />} />
+            <Route path="/batalhas/cadastrar" element={<BattleCadastrar />} />
+            <Route path="/batalhas/listar" element={<BattleListar />} />
+            <Route path="/batalhas/ultima" element={<UltimaBatalha />} />
+          </Routes>
+        </Box>
+        <Box component="footer" sx={{ p: 2, bgcolor: 'background.paper', textAlign: 'center', mt: 'auto', width: '100%' }}>
+          <Typography variant="body1">Projeto Jokenpo &copy; 2024</Typography>
+        </Box>
       </BrowserRouter>
-      <Box component="footer" sx={{ p: 2, bgcolor: 'background.paper', textAlign: 'center' }}>
-        <Typography variant="body1">Projeto Jokenpo &copy; 2024</Typography>
-      </Box>
-    </div>
+    </Box>
   );
 }
 
