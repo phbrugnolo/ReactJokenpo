@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Box, Typography, TextField, Button } from "@mui/material";
 
 function TorneioCadastrar() {
   const [nome, setNome] = useState("");
@@ -26,41 +27,38 @@ function TorneioCadastrar() {
   }
 
   return (
-    <div>
-      <h1>Cadastrar Usuário</h1>
-      <form onSubmit={cadastrarTorneio}>
-        <div>
-          <label>Nome:</label>
-          <input
-            type="text"
-            placeholder="Digite o nome"
-            onChange={(e) => setNome(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Descrição:</label>
-          <input
-            type="text"
-            placeholder="Digite a descrição"
-            onChange={(e) => setDescricao(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Premiação:</label>
-          <input
-            type="number"
-            placeholder="Digite a premiação"
-            onChange={(e) => setPremiacao(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit">Cadastrar</button>
-        </div>
-      </form>
-    </div>
+    <Box sx={{ maxWidth: 400, mx: "auto", mt: 4 }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        Cadastrar Torneio
+      </Typography>
+      <Box component="form" onSubmit={cadastrarTorneio} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <TextField
+          label="Nome"
+          variant="outlined"
+          fullWidth
+          required
+          onChange={(e) => setNome(e.target.value)}
+        />
+        <TextField
+          label="Descrição"
+          variant="outlined"
+          fullWidth
+          required
+          onChange={(e) => setDescricao(e.target.value)}
+        />
+        <TextField
+          label="Premiação"
+          type="number"
+          variant="outlined"
+          fullWidth
+          required
+          onChange={(e) => setPremiacao(e.target.value)}
+        />
+        <Button type="submit" variant="contained" color="primary">
+          Cadastrar
+        </Button>
+      </Box>
+    </Box>
   );
 }
 

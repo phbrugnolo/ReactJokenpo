@@ -1,85 +1,102 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { Container, Box, Typography, TextField, Button, Snackbar } from "@mui/material";
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
-function UserEditar() {
-  const { userId } = useParams<{ userId: string }>();
+const Alert = (props: AlertProps) => {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+};
+
+function TorneioEditar() {
+  const { torneioId } = useParams<{ torneioId: string }>();
   const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [idade, setIdade] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [premiacao, setPremiacao] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (userId) {
+    if (torneioId) {
       axios
-        .get(`http://localhost:5154/users/buscar/${userId}`)
+        .get(`http://localhost:5154/tournament/buscar/${torneioId}`)
         .then((response) => {
-          const user = response.data;
-          setNome(user.nome);
-          setEmail(user.email);
-          setTelefone(user.telefone);
-          setIdade(user.idade.toString());
+          const torneio = response.data;
+          setNome(torneio.nome);
+          setDescricao(torneio.descricao);
+          setPremiacao(torneio.premiacao.toString());
         });
     }
-  }, []);
+  }, [torneioId]);
 
-  function editarUser(e: any) {
+  function editarTorneio(e: any) {
     e.preventDefault();
-    const user = {
+    const torneio = {
       nome: nome,
-      email: email,
-      telefone: telefone,
-      idade: parseInt(idade),
+      descricao: descricao,
+      premiacao: premiacao,
     };
-    axios.put(`http://localhost:5154/users/edit/${userId}`, user);
+    axios.put(`http://localhost:5154/tournament/edit/${torneioId}`, torneio)
+      .then(() => {
+        setOpenSnackbar(true);
+        setTimeout(() => {
+          navigate("/torneios/listar");
+        }, 2000); // Redirecionar após 2 segundos
+      });
   }
 
   return (
-    <div>
-      <h1>Editar Usuário</h1>
-
-      <form onSubmit={editarUser}>
-        <div>
-          <label>Nome:</label>
-          <input
-            type="text"
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Editar Torneio
+        </Typography>
+        <form onSubmit={editarTorneio}>
+          <TextField
+            label="Nome"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+          <TextField
+            label="Descrição"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Telefone:</label>
-          <input
-            type="text"
-            value={telefone}
-            onChange={(e) => setTelefone(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Idade:</label>
-          <input
+          <TextField
+            label="Premiação"
             type="number"
-            value={idade}
-            onChange={(e) => setIdade(e.target.value)}
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={premiacao}
+            onChange={(e) => setPremiacao(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <button type="submit">Salvar</button>
-        </div>
-      </form>
-    </div>
+          <Box sx={{ mt: 2 }}>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Salvar
+            </Button>
+          </Box>
+        </form>
+      </Box>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert onClose={() => setOpenSnackbar(false)} severity="success">
+          Torneio alterado com sucesso!
+        </Alert>
+      </Snackbar>
+    </Container>
   );
 }
-export default UserEditar;
+export default TorneioEditar;

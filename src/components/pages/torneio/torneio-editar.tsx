@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { Container, Box, Typography, TextField, Button } from "@mui/material";
 
 function TorneioEditar() {
   const { torneioId } = useParams<{ torneioId: string }>();
@@ -32,42 +33,48 @@ function TorneioEditar() {
   }
 
   return (
-    <div>
-      <h1>Editar Usuário</h1>
-
-      <form onSubmit={editarTorneio}>
-        <div>
-          <label>Nome:</label>
-          <input
-            type="text"
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Editar Usuário
+        </Typography>
+        <form onSubmit={editarTorneio}>
+          <TextField
+            label="Nome"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Descricao:</label>
-          <input
-            type="text"
+          <TextField
+            label="Descrição"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={descricao}
             onChange={(e) => setDescricao(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Premiacao:</label>
-          <input
+          <TextField
+            label="Premiação"
             type="number"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={premiacao}
             onChange={(e) => setPremiacao(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <button type="submit">Salvar</button>
-        </div>
-      </form>
-    </div>
+          <Box sx={{ mt: 2 }}>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Salvar
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Container>
   );
 }
 export default TorneioEditar;
