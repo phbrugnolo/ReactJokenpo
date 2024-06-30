@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { Box, Typography, TextField, Button } from "@mui/material";
+import InputAdornment from '@mui/material/InputAdornment';
 
 function TorneioCadastrar() {
   const [nome, setNome] = useState("");
@@ -31,7 +32,11 @@ function TorneioCadastrar() {
       <Typography variant="h4" component="h1" gutterBottom>
         Cadastrar Torneio
       </Typography>
-      <Box component="form" onSubmit={cadastrarTorneio} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box
+        component="form"
+        onSubmit={cadastrarTorneio}
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+      >
         <TextField
           label="Nome"
           variant="outlined"
@@ -52,7 +57,13 @@ function TorneioCadastrar() {
           variant="outlined"
           fullWidth
           required
+          value={premiacao}
           onChange={(e) => setPremiacao(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">R$</InputAdornment>
+            ),
+          }}
         />
         <Button type="submit" variant="contained" color="primary">
           Cadastrar

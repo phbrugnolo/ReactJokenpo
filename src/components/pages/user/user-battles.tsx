@@ -1,7 +1,7 @@
 import { Battle } from "../../../models/Battle";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { formatarData, formatarGuid } from "../../../util/formata";
+import { formatarData, formatarGuid, formatarJogadaIcon } from "../../../util/formata";
 import axios from "axios";
 import {
   Typography,
@@ -43,6 +43,7 @@ function UserBattles() {
             <TableCell>Torneio</TableCell>
             <TableCell>Jogada</TableCell>
             <TableCell>Máquina</TableCell>
+            <TableCell>Resultado</TableCell>
             <TableCell>Data</TableCell>
           </TableRow>
         </TableHead>
@@ -51,11 +52,9 @@ function UserBattles() {
             <TableRow key={batalha.battleId}>
               <TableCell>{formatarGuid(batalha.battleId)}</TableCell>
               <TableCell>{batalha.torneio?.nome}</TableCell>
-              <TableCell>{batalha.jogada}</TableCell>
-              <TableCell>{batalha.jogadaMaquina}</TableCell>
-              <TableCell>{batalha.user?.vitoria}</TableCell>
-              <TableCell>{batalha.user?.derrota}</TableCell>
-              <TableCell>{batalha.user?.empate}</TableCell>
+              <TableCell>{formatarJogadaIcon(batalha.jogada)}</TableCell>
+              <TableCell>{formatarJogadaIcon(batalha.jogadaMaquina)}</TableCell>
+              <TableCell>{batalha.resultado}</TableCell>
               <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
             </TableRow>
           ))}

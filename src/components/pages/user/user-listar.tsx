@@ -60,6 +60,7 @@ function UserListar() {
             <TableCell>E-mail</TableCell>
             <TableCell>Telefone</TableCell>
             <TableCell>Idade</TableCell>
+            <TableCell>Saldo</TableCell>
             <TableCell>Criado Em</TableCell>
             <TableCell>Batalhas</TableCell>
             <TableCell>Editar</TableCell>
@@ -75,6 +76,7 @@ function UserListar() {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.telefone}</TableCell>
                 <TableCell>{user.idade}</TableCell>
+                <TableCell>{user.vitoria - user.derrota}</TableCell>
                 <TableCell>{formatarData(user.criadoEm)}</TableCell>
                 <TableCell>
                   <Tooltip title="Visualizar batalhas">

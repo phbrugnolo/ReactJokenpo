@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Box, TextField, Button, Typography, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import InputMask from "react-input-mask";
 
 function UserCadastrar() {
   const [nome, setNome] = useState("");
@@ -44,6 +45,7 @@ function UserCadastrar() {
             label="Nome"
             variant="outlined"
             margin="normal"
+            value={nome}
             placeholder="Digite seu nome"
             onChange={(e) => setNome(e.target.value)}
             required
@@ -53,20 +55,28 @@ function UserCadastrar() {
             label="Email"
             variant="outlined"
             margin="normal"
+            value={email}
             placeholder="Digite seu email"
             onChange={(e) => setEmail(e.target.value)}
             required
             type="email"
           />
-          <TextField
-            fullWidth
-            label="Telefone"
-            variant="outlined"
-            margin="normal"
-            placeholder="Digite seu telefone"
+          <InputMask
+            mask="(99) 99999-9999"
+            value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
-            required
-          />
+          >
+            {() => (
+              <TextField
+                fullWidth
+                label="Telefone"
+                variant="outlined"
+                margin="normal"
+                placeholder="(99) 99999-9999"
+                required
+              />
+            )}
+          </InputMask>
           <TextField
             fullWidth
             label="Idade"

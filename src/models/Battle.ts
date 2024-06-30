@@ -7,6 +7,7 @@ export interface Battle{
     torneioId?: string;
     jogada: string;
     jogadaMaquina: string;
+    resultado: string;
     user?: User;
     torneio?: Torneio;
     criadoEm?: string;
