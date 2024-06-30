@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Torneio } from "../../../models/Torneio";
 import { User } from "../../../models/User";
-import { TextField, MenuItem, Button, Container, Typography, Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { TextField, MenuItem, Button, Container, Typography, Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio, Snackbar } from "@mui/material";
 import { formatarJogadaIcon } from "../../../util/formata";  // Adjust the path accordingly
+import { useNavigate } from "react-router-dom";
 
 function BattleCadastrar() {
   const [userId, setUserId] = useState("");
@@ -11,6 +12,7 @@ function BattleCadastrar() {
   const [torneioId, setTorneioId] = useState("");
   const [torneios, setTorneios] = useState<Torneio[]>([]);
   const [jogada, setJogada] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     carregarUsers();
@@ -42,6 +44,11 @@ function BattleCadastrar() {
         headers: {
           "Content-Type": "application/json",
         },
+      })
+      .then((response) => {
+        navigate("/batalhas/listar", {
+          state: { message: "Batalha concluída com sucesso\n Resultado: " + response.data.resultado},
+        });
       })
       .catch((error) => {
         console.error("Erro ao realizar batalha", error);

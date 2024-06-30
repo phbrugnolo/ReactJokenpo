@@ -117,7 +117,7 @@ function UserListar() {
       </Table>
       <Snackbar
         open={openSnackbar}
-        autoHideDuration={2000}
+        autoHideDuration={5000}
         message={message}
         onClose={() => setOpenSnackbar(false)}
       />

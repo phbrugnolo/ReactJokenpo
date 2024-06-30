@@ -1,6 +1,6 @@
 import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
-import { formatarData, formatarGuid, formatarJogadaIcon } from "../../../util/formata";
+import { formatarData, formatarJogadaIcon } from "../../../util/formata";
 import axios from "axios";
 import {
   Typography,
@@ -10,14 +10,24 @@ import {
   TableCell,
   TableBody,
   Tooltip,
+  Snackbar,
 } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 function BattleListar() {
   const [batalhas, setBatalhas] = useState<Battle[]>([]);
+  const location = useLocation();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     carregarBatalhas();
-  }, []);
+
+    if (location.state && location.state.message) {
+      setMessage(location.state.message);
+      setOpenSnackbar(true);
+    }
+  }, [location.state]);
 
   function carregarBatalhas() {
     axios
@@ -48,10 +58,10 @@ function BattleListar() {
           {batalhas.map((batalha) => (
             <TableRow key={batalha.battleId}>
               <TableCell>{batalha.battleId}</TableCell>
-              <Tooltip title={batalha.torneioId}>
+              <Tooltip title={batalha.userId}>
                 <TableCell>{batalha.user?.nome}</TableCell>
               </Tooltip>
-              <Tooltip title={batalha.userId}>
+              <Tooltip title={batalha.torneioId}>
                 <TableCell>{batalha.torneio?.nome}</TableCell>
               </Tooltip>
               <TableCell>{formatarJogadaIcon(batalha.jogada)}</TableCell>
@@ -61,6 +71,12 @@ function BattleListar() {
           ))}
         </TableBody>
       </Table>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={5000}
+        message={message}
+        onClose={() => setOpenSnackbar(false)}
+      />
     </div>
   );
 }

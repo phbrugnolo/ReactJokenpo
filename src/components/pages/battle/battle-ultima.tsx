@@ -48,7 +48,7 @@ function UltimaBatalha() {
 
   return (
     <div>
-      <Typography variant="h3">Lista de batalhas</Typography>
+      <Typography variant="h3">Batalha mais recentes</Typography>
       <Table>
         <TableHead>
           <TableRow>

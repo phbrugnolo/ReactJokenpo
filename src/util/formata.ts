@@ -1,3 +1,6 @@
+import React from "react"
+import InputMask from "react-input-mask";
+
 export const formatarData = (data: string | undefined): string => {
   if (!data) return "";
   const dataObj = new Date(data);
@@ -21,3 +24,8 @@ export function formatarJogadaIcon(jogada: string) {
       return jogada;
   }
 }
+
+
+// function PhoneInput(props) {
+//   return <InputMask mask="(XX) XXXXX-XXXX" maskPlaceholder="(XX) XXXXX-XXXX" onChange={props.onChange} value={props.value} />;
+// }
