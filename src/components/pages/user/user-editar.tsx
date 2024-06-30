@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Container, Box, Typography, TextField, Button, Snackbar } from "@mui/material";
-
+import { useParams, useNavigate } from "react-router-dom";
+import { Container, Box, Typography, TextField, Button } from "@mui/material";
 
 function UserEditar() {
   const { userId } = useParams<{ userId: string }>();
+  const navigate = useNavigate();
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -33,55 +33,64 @@ function UserEditar() {
       telefone: telefone,
       idade: parseInt(idade),
     };
-    axios.put(`http://localhost:5154/users/edit/${userId}`, user);
+    axios.put(`http://localhost:5154/users/edit/${userId}`, user).then(() => {
+      navigate('/users/listar', { state: { message: "Usuário alterado com sucesso" } });
+    });
   }
 
   return (
-    <div>
-      <h1>Editar Usuário</h1>
-
-      <form onSubmit={editarUser}>
-        <div>
-          <label>Nome:</label>
-          <input
-            type="text"
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Editar Usuário
+        </Typography>
+        <form onSubmit={editarUser}>
+          <TextField
+            fullWidth
+            label="Nome"
+            variant="outlined"
+            margin="normal"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
+          <TextField
+            fullWidth
+            label="Email"
+            variant="outlined"
+            margin="normal"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
+            type="email"
           />
-        </div>
-        <div>
-          <label>Telefone:</label>
-          <input
-            type="text"
+          <TextField
+            fullWidth
+            label="Telefone"
+            variant="outlined"
+            margin="normal"
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Idade:</label>
-          <input
-            type="number"
+          <TextField
+            fullWidth
+            label="Idade"
+            variant="outlined"
+            margin="normal"
             value={idade}
             onChange={(e) => setIdade(e.target.value)}
             required
+            type="number"
           />
-        </div>
-        <div>
-          <button type="submit">Salvar</button>
-        </div>
-      </form>
-    </div>
+          <Box sx={{ mt: 2 }}>
+            <Button type="submit" variant="contained" color="primary">
+              Salvar
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Container>
   );
 }
 

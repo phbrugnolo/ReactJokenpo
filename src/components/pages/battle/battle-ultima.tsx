@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Torneio } from "../../../models/Torneio";
 import { User } from "../../../models/User";
-import { formatarData, formatarGuid } from "../../../util/formata";
+import { formatarData, formatarGuid, formatarJogadaIcon } from "../../../util/formata";
 import {
   Typography,
   Table,
@@ -65,8 +65,8 @@ function UltimaBatalha() {
             <TableCell>{formatarGuid(battleId)}</TableCell>
             <TableCell>{user?.nome}</TableCell>
             <TableCell>{torneio?.nome}</TableCell>
-            <TableCell>{jogada}</TableCell>
-            <TableCell>{jogadaMaquina}</TableCell>
+            <TableCell>{formatarJogadaIcon(jogada)}</TableCell>
+            <TableCell>{formatarJogadaIcon(jogadaMaquina)}</TableCell>
             <TableCell>{formatarData(criadoEm)}</TableCell>
           </TableRow>
         </TableBody>

@@ -36,9 +36,7 @@ function TorneioListar() {
 
   function remover(torneioId: any) {
     axios
-      .delete<Torneio[]>(
-        `http://localhost:5154/tournament/remover/${torneioId}`
-      )
+      .delete(`http://localhost:5154/tournament/remover/${torneioId}`)
       .then((resposta) => {
         setTorneios(resposta.data);
       });

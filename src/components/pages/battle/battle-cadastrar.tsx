@@ -1,17 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { Torneio } from "../../../models/Torneio";
+import { User } from "../../../models/User";
+import { TextField, MenuItem, Button, Container, Typography, Box, FormControl, FormLabel, RadioGroup, FormControlLabel, Radio } from "@mui/material";
+import { formatarJogadaIcon } from "../../../util/formata";  // Adjust the path accordingly
 
 function BattleCadastrar() {
   const [userId, setUserId] = useState("");
+  const [users, setUsers] = useState<User[]>([]);
   const [torneioId, setTorneioId] = useState("");
-  const [jogadas, setJogadas] = useState("");
+  const [torneios, setTorneios] = useState<Torneio[]>([]);
+  const [jogada, setJogada] = useState("");
+
+  useEffect(() => {
+    carregarUsers();
+    carregarTorneios();
+  }, []);
+
+  function carregarUsers() {
+    axios.get<User[]>("http://localhost:5154/users/listar").then((response) => {
+      setUsers(response.data);
+    });
+  }
+
+  function carregarTorneios() {
+    axios.get<Torneio[]>("http://localhost:5154/tournament/listar").then((response) => {
+      setTorneios(response.data);
+    });
+  }
 
   function cadastrarBatalha(e: any) {
     e.preventDefault();
     const battle = {
       userId: userId,
       torneioId: torneioId,
-      jogadas: jogadas,
+      jogada: jogada,
     };
 
     axios
@@ -26,41 +49,64 @@ function BattleCadastrar() {
   }
 
   return (
-    <div>
-      <h1>Criar Batalha</h1>
-      <form onSubmit={cadastrarBatalha}>
-        <div>
-          <label>Id do Usuário:</label>
-          <input
-            type="text"
-            placeholder="Digite o id do usuário"
-            onChange={(e) => setUserId(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Id do Torneio:</label>
-          <input
-            type="text"
-            placeholder="Digite o id do torneio"
-            onChange={(e) => setTorneioId(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Jogadas:</label>
-          <input
-            type="text"
-            placeholder="Digite as jogadas"
-            onChange={(e) => setJogadas(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit">Cadastrar</button>
-        </div>
-      </form>
-    </div>
+    <Container maxWidth="sm">
+      <Box sx={{ mt: 4 }}>
+        <Typography variant="h4" component="h1" gutterBottom>
+          Criar Batalha
+        </Typography>
+        <form onSubmit={cadastrarBatalha}>
+          <Box sx={{ mb: 2 }}>
+            <TextField
+              fullWidth
+              select
+              label="Usuários"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+              variant="outlined"
+            >
+              {users.map((user) => (
+                <MenuItem key={user.userId} value={user.userId}>
+                  {user.nome}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+          <Box sx={{ mb: 2 }}>
+            <TextField
+              fullWidth
+              select
+              label="Torneios"
+              value={torneioId}
+              onChange={(e) => setTorneioId(e.target.value)}
+              variant="outlined"
+            >
+              {torneios.map((torneio) => (
+                <MenuItem key={torneio.torneioId} value={torneio.torneioId}>
+                  {torneio.nome}
+                </MenuItem>
+              ))}
+            </TextField>
+          </Box>
+          <Box sx={{ mb: 2 }}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">Jogada</FormLabel>
+              <RadioGroup
+                row
+                value={jogada}
+                onChange={(e) => setJogada(e.target.value)}
+              >
+                <FormControlLabel value="pedra" control={<Radio />} label={`Pedra ${formatarJogadaIcon("pedra")}`} />
+                <FormControlLabel value="papel" control={<Radio />} label={`Papel ${formatarJogadaIcon("papel")}`} />
+                <FormControlLabel value="tesoura" control={<Radio />} label={`Tesoura ${formatarJogadaIcon("tesoura")}`} />
+              </RadioGroup>
+            </FormControl>
+          </Box>
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Cadastrar
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 }
 
