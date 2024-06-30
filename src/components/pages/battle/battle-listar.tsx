@@ -19,6 +19,7 @@ function BattleListar() {
   const location = useLocation();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [message, setMessage] = useState("");
+  const [focusedLink, setFocusedLink] = useState<string | null>(null);
 
   useEffect(() => {
     carregarBatalhas();
@@ -58,20 +59,44 @@ function BattleListar() {
           {batalhas.map((batalha) => (
             <TableRow key={batalha.battleId}>
               <TableCell>{batalha.battleId}</TableCell>
-              <Tooltip title="Ver Usuário">
-                <TableCell>
-                  <Link to={`/users/buscar/${batalha.userId}`}>
+              <TableCell>
+                <Tooltip title="Ver Usuário">
+                  <Typography
+                    component={Link}
+                    to={`/users/buscar/${batalha.userId}`}
+                    style={{
+                      textDecoration: "none",
+                      color:
+                        focusedLink === `user-${batalha.userId}` ? "blue" : "inherit",
+                    }}
+                    onMouseEnter={() => setFocusedLink(`user-${batalha.userId}`)}
+                    onMouseLeave={() => setFocusedLink(null)}
+                    onFocus={() => setFocusedLink(`user-${batalha.userId}`)}
+                    onBlur={() => setFocusedLink(null)}
+                  >
                     {batalha.user?.nome}
-                  </Link>
-                </TableCell>
-              </Tooltip>
-              <Tooltip title="Ver Torneio">
-                <TableCell>
-                  <Link to={`/torneios/buscar/${batalha.torneioId}`}>
+                  </Typography>
+                </Tooltip>
+              </TableCell>
+              <TableCell>
+                <Tooltip title="Ver Torneio">
+                  <Typography
+                    component={Link}
+                    to={`/torneios/buscar/${batalha.torneioId}`}
+                    style={{
+                      textDecoration: "none",
+                      color:
+                        focusedLink === `torneio-${batalha.torneioId}` ? "blue" : "inherit",
+                    }}
+                    onMouseEnter={() => setFocusedLink(`torneio-${batalha.torneioId}`)}
+                    onMouseLeave={() => setFocusedLink(null)}
+                    onFocus={() => setFocusedLink(`torneio-${batalha.torneioId}`)}
+                    onBlur={() => setFocusedLink(null)}
+                  >
                     {batalha.torneio?.nome}
-                  </Link>
-                </TableCell>
-              </Tooltip>
+                  </Typography>
+                </Tooltip>
+              </TableCell>
               <TableCell>{formatarJogadaIcon(batalha.jogada)}</TableCell>
               <TableCell>{formatarJogadaIcon(batalha.jogadaMaquina)}</TableCell>
               <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
@@ -88,4 +113,5 @@ function BattleListar() {
     </div>
   );
 }
+
 export default BattleListar;
