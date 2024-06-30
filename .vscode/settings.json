@@ -6,7 +6,7 @@
   "editor.wordWrap": "on",
   "editor.tabSize": 2,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "cSpell.userWords": [
+  "cSpell.words": [
     "descricao",
     "Descricao",
     "indice",
@@ -15,5 +15,5 @@
     "Premiacao",
     "usuario",
     "Jokenpo"
-  ]
+  ],
 }
