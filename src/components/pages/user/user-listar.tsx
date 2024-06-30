@@ -68,8 +68,7 @@ function UserListar() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {Array.isArray(users) &&
-            users.map((user) => (
+          {users.map((user) => (
               <TableRow key={user.userId}>
                 <TableCell>{user.userId}</TableCell>
                 <TableCell>{user.nome}</TableCell>

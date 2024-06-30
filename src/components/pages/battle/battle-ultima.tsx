@@ -14,14 +14,7 @@ import {
 } from "@mui/material";
 
 function UltimaBatalha() {
-  const [battleId, setBattleId] = useState("");
-  const [torneioId, setTorneioId] = useState("");
-  const [userId, setUserId] = useState("");
-  const [jogada, setJogada] = useState("");
-  const [jogadaMaquina, setJogadaMaquina] = useState("");
-  const [torneio, setTorneio] = useState<Torneio>();
-  const [user, setUser] = useState<User>();
-  const [criadoEm, setCriadoEm] = useState("");
+  const [battles, setBattles] = useState<Battle[]>([]);
 
   useEffect(() => {
     carregarBatalha();
@@ -29,17 +22,9 @@ function UltimaBatalha() {
 
   function carregarBatalha() {
     axios
-      .get("http://localhost:5154/batalhas/last")
+      .get<Battle[]>("http://localhost:5154/batalhas/last")
       .then((resposta) => {
-        const batalha = resposta.data;
-        setBattleId(batalha.battleId);
-        setTorneioId(batalha.torneioId);
-        setUserId(batalha.userId);
-        setJogada(batalha.jogada);
-        setJogadaMaquina(batalha.jogadaMaquina);
-        setTorneio(batalha.torneio);
-        setUser(batalha.user);
-        setCriadoEm(batalha.criadoEm);
+        setBattles(resposta.data);
       })
       .catch((erro) => {
         console.log("Erro: " + erro);
@@ -48,7 +33,7 @@ function UltimaBatalha() {
 
   return (
     <div>
-      <Typography variant="h3">Batalha mais recentes</Typography>
+      <Typography variant="h3">Batalhas mais recentes</Typography>
       <Table>
         <TableHead>
           <TableRow>
@@ -61,14 +46,16 @@ function UltimaBatalha() {
           </TableRow>
         </TableHead>
         <TableBody>
-          <TableRow key={battleId}>
-            <TableCell>{formatarGuid(battleId)}</TableCell>
-            <TableCell>{user?.nome}</TableCell>
-            <TableCell>{torneio?.nome}</TableCell>
-            <TableCell>{formatarJogadaIcon(jogada)}</TableCell>
-            <TableCell>{formatarJogadaIcon(jogadaMaquina)}</TableCell>
-            <TableCell>{formatarData(criadoEm)}</TableCell>
+          {battles.map((battle) => (
+          <TableRow key={battle.battleId}>
+            <TableCell>{formatarGuid(battle.battleId)}</TableCell>
+            <TableCell>{battle.user?.nome}</TableCell>
+            <TableCell>{battle.torneio?.nome}</TableCell>
+            <TableCell>{formatarJogadaIcon(battle.jogada)}</TableCell>
+            <TableCell>{formatarJogadaIcon(battle.jogadaMaquina)}</TableCell>
+            <TableCell>{formatarData(battle.criadoEm)}</TableCell>
           </TableRow>
+          ))}
         </TableBody>
       </Table>
     </div>
