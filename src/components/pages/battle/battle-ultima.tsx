@@ -41,6 +41,7 @@ function UltimaBatalha() {
             <TableCell>Torneio</TableCell>
             <TableCell>Jogada</TableCell>
             <TableCell>Máquina</TableCell>
+            <TableCell>Resultado</TableCell>
             <TableCell>Criado Em</TableCell>
           </TableRow>
         </TableHead>
@@ -52,6 +53,7 @@ function UltimaBatalha() {
               <TableCell>{battle.torneio?.nome}</TableCell>
               <TableCell>{formatarJogadaIcon(battle.jogada)}</TableCell>
               <TableCell>{formatarJogadaIcon(battle.jogadaMaquina)}</TableCell>
+              <TableCell>{battle.resultado}</TableCell>
               <TableCell>{formatarData(battle.criadoEm)}</TableCell>
             </TableRow>
           ))}

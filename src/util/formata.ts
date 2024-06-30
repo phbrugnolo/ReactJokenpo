@@ -26,6 +26,17 @@ export function formatarJogadaIcon(jogada: string) {
 }
 
 
-// function PhoneInput(props) {
-//   return <InputMask mask="(XX) XXXXX-XXXX" maskPlaceholder="(XX) XXXXX-XXXX" onChange={props.onChange} value={props.value} />;
-// }
+export const formataSaldo = (vitorias: number, derrotas: number): string => {
+  const saldo = vitorias - derrotas;
+  if (saldo === 1) {
+    return `Seu saldo é de ${saldo} vitória.`;
+  } else if (saldo === -1) {
+    return `Seu saldo é de ${Math.abs(saldo)} derrota.`;
+  } else if (saldo > 0) {
+    return `Seu saldo é de ${saldo} vitórias.`;
+  } else if (saldo < 0) {
+    return `Seu saldo esta negativo em ${Math.abs(saldo)} derrotas.`;
+  } else {
+    return "Seu saldo está equilibrado.";
+  }
+};

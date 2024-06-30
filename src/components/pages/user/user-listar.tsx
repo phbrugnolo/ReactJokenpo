@@ -2,7 +2,7 @@ import { User } from "../../../models/User";
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
-import { formatarData } from "../../../util/formata";
+import { formataSaldo, formatarData } from "../../../util/formata";
 import {
   IconButton,
   Table,
@@ -20,6 +20,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 function UserListar() {
   const [users, setUsers] = useState<User[]>([]);
+
   const location = useLocation();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [message, setMessage] = useState("");
@@ -75,7 +76,9 @@ function UserListar() {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.telefone}</TableCell>
                 <TableCell>{user.idade}</TableCell>
-                <TableCell>{user.vitoria - user.derrota}</TableCell>
+                <TableCell>
+                  {formataSaldo(user.vitoria, user.derrota)}
+                </TableCell>
                 <TableCell>{formatarData(user.criadoEm)}</TableCell>
                 <TableCell>
                   <Tooltip title="Visualizar batalhas">
