@@ -1,8 +1,6 @@
 import { Battle } from "../../../models/Battle";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Torneio } from "../../../models/Torneio";
-import { User } from "../../../models/User";
 import { formatarData, formatarGuid, formatarJogadaIcon } from "../../../util/formata";
 import {
   Typography,
@@ -12,6 +10,7 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function UltimaBatalha() {
   const [battles, setBattles] = useState<Battle[]>([]);
@@ -47,18 +46,19 @@ function UltimaBatalha() {
         </TableHead>
         <TableBody>
           {battles.map((battle) => (
-          <TableRow key={battle.battleId}>
-            <TableCell>{formatarGuid(battle.battleId)}</TableCell>
-            <TableCell>{battle.user?.nome}</TableCell>
-            <TableCell>{battle.torneio?.nome}</TableCell>
-            <TableCell>{formatarJogadaIcon(battle.jogada)}</TableCell>
-            <TableCell>{formatarJogadaIcon(battle.jogadaMaquina)}</TableCell>
-            <TableCell>{formatarData(battle.criadoEm)}</TableCell>
-          </TableRow>
+            <TableRow key={battle.battleId}>
+              <TableCell>{formatarGuid(battle.battleId)}</TableCell>
+              <TableCell>{battle.user?.nome}</TableCell>
+              <TableCell>{battle.torneio?.nome}</TableCell>
+              <TableCell>{formatarJogadaIcon(battle.jogada)}</TableCell>
+              <TableCell>{formatarJogadaIcon(battle.jogadaMaquina)}</TableCell>
+              <TableCell>{formatarData(battle.criadoEm)}</TableCell>
+            </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
   );
 }
+
 export default UltimaBatalha;

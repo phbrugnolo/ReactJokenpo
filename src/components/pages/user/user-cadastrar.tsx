@@ -66,24 +66,17 @@ function UserCadastrar() {
             required
             type="email"
           />
-          {/* <InputMask
-            mask="(99) 99999-9999"
+          <TextField
+            fullWidth
+            label="Telefone"
+            variant="outlined"
+            margin="normal"
             value={telefone}
+            placeholder="(XX) XXXXX-XXXX"
             onChange={(e) => setTelefone(e.target.value)}
-          >
-            {(inputProps: any) => (
-              <TextField
-                {...inputProps}
-                fullWidth
-                label="Telefone"
-                variant="outlined"
-                margin="normal"
-                placeholder="Digite seu telefone"
-                required
-                type="tel"
-              />
-            )}
-          </InputMask> */}
+            required
+            type="tel"
+          />
           <TextField
             fullWidth
             label="Idade"

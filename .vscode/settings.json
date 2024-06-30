@@ -8,12 +8,9 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "cSpell.words": [
     "descricao",
-    "Descricao",
     "indice",
     "opcoes",
     "premiacao",
-    "Premiacao",
     "usuario",
-    "Jokenpo"
   ],
 }

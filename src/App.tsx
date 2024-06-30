@@ -4,14 +4,14 @@ import { AppBar, Toolbar, Typography, Button, Menu, MenuItem, Box, CssBaseline, 
 import UserCadastrar from "./components/pages/user/user-cadastrar";
 import UserListar from "./components/pages/user/user-listar";
 import UserEditar from "./components/pages/user/user-editar";
+import UserBattles from "./components/pages/user/user-battles";
+import UserListarUm from "./components/pages/user/user-listar-um";
 import TorneioCadastrar from "./components/pages/torneio/torneio-cadastrar";
 import TorneioListar from "./components/pages/torneio/torneio-listar";
 import TorneioEditar from "./components/pages/torneio/torneio-editar";
 import BattleCadastrar from "./components/pages/battle/battle-cadastrar";
 import BattleListar from "./components/pages/battle/battle-listar";
 import UltimaBatalha from "./components/pages/battle/battle-ultima";
-import UserBattles from "./components/pages/user/user-battles";
-import UserListarUm from "./components/pages/user/user-listar-um";
 import TorneioListarUm from "./components/pages/torneio/torneio-listar-um";
 
 const theme = createTheme({

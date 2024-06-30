@@ -12,7 +12,7 @@ import {
   Tooltip,
   Snackbar,
 } from "@mui/material";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function BattleListar() {
   const [batalhas, setBatalhas] = useState<Battle[]>([]);
@@ -58,11 +58,19 @@ function BattleListar() {
           {batalhas.map((batalha) => (
             <TableRow key={batalha.battleId}>
               <TableCell>{batalha.battleId}</TableCell>
-              <Tooltip title={batalha.userId}>
-                <TableCell>{batalha.user?.nome}</TableCell>
+              <Tooltip title="Ver Usuário">
+                <TableCell>
+                  <Link to={`/users/buscar/${batalha.userId}`}>
+                    {batalha.user?.nome}
+                  </Link>
+                </TableCell>
               </Tooltip>
-              <Tooltip title={batalha.torneioId}>
-                <TableCell>{batalha.torneio?.nome}</TableCell>
+              <Tooltip title="Ver Torneio">
+                <TableCell>
+                  <Link to={`/torneios/buscar/${batalha.torneioId}`}>
+                    {batalha.torneio?.nome}
+                  </Link>
+                </TableCell>
               </Tooltip>
               <TableCell>{formatarJogadaIcon(batalha.jogada)}</TableCell>
               <TableCell>{formatarJogadaIcon(batalha.jogadaMaquina)}</TableCell>
