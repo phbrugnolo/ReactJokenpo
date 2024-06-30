@@ -2,11 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import InputAdornment from '@mui/material/InputAdornment';
+import { useNavigate } from "react-router-dom";
 
 function TorneioCadastrar() {
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [premiacao, setPremiacao] = useState("");
+  const navigate = useNavigate();
 
   function cadastrarTorneio(e: any) {
     e.preventDefault();
@@ -21,6 +23,10 @@ function TorneioCadastrar() {
         headers: {
           "Content-Type": "application/json",
         },
+      }).then(() => {
+        navigate("/torneios/listar", {
+          state: { message: "Torneio cadastrado com sucesso" },
+        });
       })
       .catch((error) => {
         console.error("Erro ao cadastrar torneio:", error);

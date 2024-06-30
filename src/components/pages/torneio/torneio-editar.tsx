@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { Container, Box, Typography, TextField, Button, Snackbar } from "@mui/material";
+import { Container, Box, Typography, TextField, Button, Snackbar, InputAdornment } from "@mui/material";
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 
 const Alert = (props: AlertProps) => {
@@ -38,10 +38,7 @@ function TorneioEditar() {
     };
     axios.put(`http://localhost:5154/tournament/edit/${torneioId}`, torneio)
       .then(() => {
-        setOpenSnackbar(true);
-        setTimeout(() => {
-          navigate("/torneios/listar");
-        }, 2000); // Redirecionar após 2 segundos
+        navigate('/torneios/listar', { state: { message: "Torneio alterado com sucesso" } });
       });
   }
 
@@ -79,6 +76,11 @@ function TorneioEditar() {
             value={premiacao}
             onChange={(e) => setPremiacao(e.target.value)}
             required
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">R$</InputAdornment>
+              ),
+            }}
           />
           <Box sx={{ mt: 2 }}>
             <Button type="submit" variant="contained" color="primary" fullWidth>

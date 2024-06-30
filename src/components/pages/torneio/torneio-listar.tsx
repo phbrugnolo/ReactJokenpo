@@ -1,6 +1,6 @@
 import { Torneio } from "../../../models/Torneio";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import { formatarData } from "../../../util/formata";
 import {
@@ -12,16 +12,26 @@ import {
   TableBody,
   IconButton,
   Tooltip,
+  Snackbar,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 
 function TorneioListar() {
   const [torneios, setTorneios] = useState<Torneio[]>([]);
+  const location = useLocation();
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [message, setMessage] = useState("");
+
 
   useEffect(() => {
     carregarTorneios();
-  }, []);
+
+    if (location.state && location.state.message) {
+      setMessage(location.state.message);
+      setOpenSnackbar(true);
+    }
+  }, [location.state]);
 
   function carregarTorneios() {
     axios
@@ -39,6 +49,8 @@ function TorneioListar() {
       .delete(`http://localhost:5154/tournament/remover/${torneioId}`)
       .then((resposta) => {
         setTorneios(resposta.data);
+        setMessage("Torneio removido com sucesso");
+        setOpenSnackbar(true);
       });
   }
 
@@ -90,6 +102,12 @@ function TorneioListar() {
           ))}
         </TableBody>
       </Table>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={2000}
+        message={message}
+        onClose={() => setOpenSnackbar(false)}
+      />
     </div>
   );
 }

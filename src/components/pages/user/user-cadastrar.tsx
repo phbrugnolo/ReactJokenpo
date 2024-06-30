@@ -1,8 +1,9 @@
 import { useState } from "react";
+import React from "react";
+import InputMask from "react-input-mask";
 import axios from "axios";
 import { Box, TextField, Button, Typography, Container } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import InputMask from "react-input-mask";
 
 function UserCadastrar() {
   const [nome, setNome] = useState("");
@@ -12,6 +13,8 @@ function UserCadastrar() {
   const navigate = useNavigate();
 
   function cadastrarUser(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+
     const user = {
       nome: nome,
       email: email,
@@ -19,25 +22,27 @@ function UserCadastrar() {
       idade: parseInt(idade),
     };
 
-    axios.post("http://localhost:5154/users/cadastrar", user, {
+    axios
+      .post("http://localhost:5154/users/cadastrar", user, {
         headers: {
           "Content-Type": "application/json",
         },
-      }).then(() => {
-        navigate('/users/listar', { state: { message: "Usuário cadastrado com sucesso" } })
+      })
+      .then(() => {
+        navigate("/users/listar", {
+          state: { message: "Usuário cadastrado com sucesso" },
+        });
       })
       .catch((error) => {
         console.error("Erro ao cadastrar usuário:", error);
       });
-
-    e.preventDefault();
   }
 
   return (
     <Container maxWidth="sm">
       <Box sx={{ mt: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          Editar Usuário
+          Cadastrar Usuário
         </Typography>
         <form onSubmit={cadastrarUser}>
           <TextField
@@ -66,14 +71,16 @@ function UserCadastrar() {
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
           >
-            {() => (
+            {(inputProps: any) => (
               <TextField
+                {...inputProps}
                 fullWidth
                 label="Telefone"
                 variant="outlined"
                 margin="normal"
-                placeholder="(99) 99999-9999"
+                placeholder="Digite seu telefone"
                 required
+                type="tel"
               />
             )}
           </InputMask>
