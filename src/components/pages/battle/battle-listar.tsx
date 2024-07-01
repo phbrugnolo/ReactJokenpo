@@ -49,6 +49,7 @@ function BattleListar() {
             <TableCell>Torneio</TableCell>
             <TableCell>Jogada</TableCell>
             <TableCell>Máquina</TableCell>
+            <TableCell>Resultado</TableCell>
             <TableCell>Criado Em</TableCell>
           </TableRow>
         </TableHead>
@@ -96,6 +97,7 @@ function BattleListar() {
               </TableCell>
               <TableCell>{formatarJogadaIcon(batalha.jogada)}</TableCell>
               <TableCell>{formatarJogadaIcon(batalha.jogadaMaquina)}</TableCell>
+              <TableCell>{batalha.resultado}</TableCell>
               <TableCell>{formatarData(batalha.criadoEm)}</TableCell>
             </TableRow>
           ))}
