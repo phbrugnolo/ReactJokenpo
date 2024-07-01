@@ -28,9 +28,6 @@ function TorneioCadastrar() {
           state: { message: "Torneio cadastrado com sucesso" },
         });
       })
-      .catch((error) => {
-        console.error("Erro ao cadastrar torneio:", error);
-      });
   }
 
   return (

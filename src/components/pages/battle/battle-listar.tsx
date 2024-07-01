@@ -36,9 +36,6 @@ function BattleListar() {
       .then((resposta) => {
         setBatalhas(resposta.data);
       })
-      .catch((erro) => {
-        console.log("Erro: " + erro);
-      });
   }
 
   return (

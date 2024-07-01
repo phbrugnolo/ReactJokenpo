@@ -41,9 +41,6 @@ function UserListarUm() {
         setIdade(user.idade.toString());
         setCriadoEm(formatarData(user.criadoEm));
       })
-      .catch((erro) => {
-        console.log("Erro: " + erro);
-      });
   }
 
   function remover(userId: any) {

@@ -34,8 +34,6 @@ function UserCadastrar() {
         });
       })
       .catch((error) => {
-        console.log(error.response.data.Errors); // Adicionado para depuração
-        console.log(error.response); // Adicionado para depuração
         if (error.response && error.response.data && error.response.data.errors) {
           setErrors(error.response.data.errors);
         } else {

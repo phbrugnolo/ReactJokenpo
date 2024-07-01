@@ -33,15 +33,11 @@ function TorneioListarUm() {
     axios
       .get(`http://localhost:5154/tournament/buscar/${torneioId}`)
       .then((resposta) => {
-        console.log(resposta.data);
         setNome(resposta.data.nome);
         setDescricao(resposta.data.descricao);
         setPremiacao(parseFloat(resposta.data.premiacao));
         setCriadoEm(resposta.data.criadoEm);
       })
-      .catch((erro) => {
-        console.log("Erro: " + erro);
-      });
   }
 
   function remover(torneioId: any) {

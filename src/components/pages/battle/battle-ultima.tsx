@@ -25,9 +25,6 @@ function UltimaBatalha() {
       .then((resposta) => {
         setBattles(resposta.data);
       })
-      .catch((erro) => {
-        console.log("Erro: " + erro);
-      });
   }
 
   return (

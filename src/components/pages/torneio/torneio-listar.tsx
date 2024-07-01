@@ -39,9 +39,6 @@ function TorneioListar() {
       .then((resposta) => {
         setTorneios(resposta.data);
       })
-      .catch((erro) => {
-        console.log("Erro: " + erro);
-      });
   }
 
   function remover(torneioId: any) {
@@ -75,7 +72,7 @@ function TorneioListar() {
               <TableCell>{torneio.torneioId}</TableCell>
               <TableCell>{torneio.nome}</TableCell>
               <TableCell>{torneio.descricao}</TableCell>
-              <TableCell>{torneio.premiacao.toFixed(2)}</TableCell>
+              <TableCell>R$ {torneio.premiacao.toFixed(2)}</TableCell>
               <TableCell>{formatarData(torneio.criadoEm)}</TableCell>
               <TableCell>
                 <Tooltip title="Editar Torneio">

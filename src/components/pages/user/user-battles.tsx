@@ -27,9 +27,6 @@ function UserBattles() {
         .then((resposta) => {
           setBatalhas(resposta.data);
         })
-        .catch((erro) => {
-          console.log("Erro: " + erro);
-        });
     }
   }
 

@@ -10,6 +10,7 @@ function UserEditar() {
   const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
   const [idade, setIdade] = useState("");
+  const [errors, setErrors] = useState<{ field: string | null, message: string }[]>([]);
 
   useEffect(() => {
     if (userId) {
@@ -25,7 +26,7 @@ function UserEditar() {
     }
   }, [userId]);
 
-  function editarUser(e: any) {
+  function editarUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const user = {
       nome: nome,
@@ -33,8 +34,20 @@ function UserEditar() {
       telefone: telefone,
       idade: parseInt(idade),
     };
-    axios.put(`http://localhost:5154/users/edit/${userId}`, user).then(() => {
+    axios.put(`http://localhost:5154/users/edit/${userId}`, user, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(() => {
       navigate('/users/listar', { state: { message: "Usuário alterado com sucesso" } });
+    }).catch((error) => {
+      console.log(error.response.data.Errors); // Adicionado para depuração
+      console.log(error.response); // Adicionado para depuração
+      if (error.response && error.response.data && error.response.data.errors) {
+        setErrors(error.response.data.errors);
+      } else {
+        setErrors([{ field: "", message: "Erro ao editar usuário" }]);
+      }
     });
   }
 
@@ -44,6 +57,15 @@ function UserEditar() {
         <Typography variant="h4" component="h1" gutterBottom>
           Editar Usuário
         </Typography>
+        {errors.length > 0 && (
+          <Box sx={{ mb: 2 }}>
+            {errors.map((error, index) => (
+              <Typography key={index} variant="body1" color="error">
+                {error.field ? `${error.field}: ${error.message}` : error.message}
+              </Typography>
+            ))}
+          </Box>
+        )}
         <form onSubmit={editarUser}>
           <TextField
             fullWidth
@@ -53,6 +75,8 @@ function UserEditar() {
             value={nome}
             onChange={(e) => setNome(e.target.value)}
             required
+            error={errors.some((e) => e.field === "Nome")}
+            helperText={errors.find((e) => e.field === "Nome")?.message}
           />
           <TextField
             fullWidth
@@ -63,6 +87,8 @@ function UserEditar() {
             onChange={(e) => setEmail(e.target.value)}
             required
             type="email"
+            error={errors.some((e) => e.field === "Email")}
+            helperText={errors.find((e) => e.field === "Email")?.message}
           />
           <TextField
             fullWidth
@@ -72,6 +98,9 @@ function UserEditar() {
             value={telefone}
             onChange={(e) => setTelefone(e.target.value)}
             required
+            type="tel"
+            error={errors.some((e) => e.field === "Telefone")}
+            helperText={errors.find((e) => e.field === "Telefone")?.message}
           />
           <TextField
             fullWidth
@@ -82,6 +111,8 @@ function UserEditar() {
             onChange={(e) => setIdade(e.target.value)}
             required
             type="number"
+            error={errors.some((e) => e.field === "Idade")}
+            helperText={errors.find((e) => e.field === "Idade")?.message}
           />
           <Box sx={{ mt: 2 }}>
             <Button type="submit" variant="contained" color="primary">
